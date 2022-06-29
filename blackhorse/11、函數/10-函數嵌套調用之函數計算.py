@@ -15,3 +15,4 @@ def average_num(a, b, c):
 
 result = average_num(1, 2, 3)
 print(result)
+print(sumResult) # 局部變量
