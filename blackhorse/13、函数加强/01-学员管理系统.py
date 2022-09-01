@@ -15,7 +15,8 @@ def info_print():
 # info = []
 
 
-info = [{'id': '1', 'name': '潘', 'gender': '男'}, {'id': '2', 'name': '楊', 'gender': '女'}]
+info = [{'id': '1', 'name': '潘', 'gender': '男', 'tel': '139178'},
+        {'id': '2', 'name': '楊', 'gender': '女', 'tel': '130178'}]
 
 
 # 添加學員信息的函數
@@ -50,12 +51,6 @@ def add_info():
     print(info)
 
 
-# 查詢學生序號
-def search_info():
-    new_id = int(input('請問輸入學生學號？ ')) - 1
-    print(info[new_id])
-
-
 # 刪除學員
 def del_info():
     """刪除學員"""
@@ -86,6 +81,50 @@ def del_info():
             print('该学员不存在')
 
 
+# 修改信息
+def modify_info():
+    """修改信息"""
+    # 1. 用戶輸入要刪除的學員的姓名
+    print('===================')
+    modify_name = input('請輸入要修改的學員的姓名： ')
+
+    # 聲明 info 是全局變量
+    global info
+
+    # 2. 判斷學員是否存在：存在修改手機號；不存在：提示
+    for i in info:
+        # 3. 遍歷列表，判斷輸入的姓名==字典['name']
+        if modify_name == i['name']:
+            i['tel'] = input('請輸入新的手機號 ')
+            # 4. 打印info
+            print(info)
+            break
+        else:
+            print('該學員不存在')
+            add_info()
+            break
+
+
+# 查詢學生序號
+def search_info():
+    """ 查詢學員 """
+    # 1. 輸入要查找的學員姓名
+    search_name = input('請問輸入學員姓名？ ')
+
+    # 2. 判斷學員是否存在：如果輸入的姓名存在則顯示則為學員信息，否則報錯提示
+    # 2.1 声明 info 为全局
+    global info
+    # 2.2 遍历 info：判断输入的学员是否存在
+    for i in info:
+        if search_name == i['name']:
+            # 学员存在：打印信息并终止循环
+            print('查找到的學員信息如下： ===========')
+            print(f"'該學員的學號是{i['id']}, 姓名是{i['name']}， 手機號是{i['tel']}")
+            break
+        else:
+            print('該學員不存在')
+
+
 # 系统功能需要循环使用，直到用户输入6，才退出系统
 while True:
     # 1. 显示功能界面
@@ -103,6 +142,7 @@ while True:
         del_info()
     elif user_num == 3:  # 修改
         print('修改')
+        modify_info()
     elif user_num == 4:  # 查找
         search_info()
     elif user_num == 5:
