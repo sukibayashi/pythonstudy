@@ -1,0 +1,816 @@
+SetTotalBar(200);
+var: point(0),point2(0);
+
+// 融外自投 //
+value1=getfield("股本(億)", "D");
+// 融本比
+value2=getfield("融資買進張數")-getfield("融資賣出張數");
+if value1<>0 and value2>0 then value3=value2/value1 else value3=0;
+if value1<>0 and value2<0 then value4=value2/value1 else value4=0;
+
+// 外本比
+value5=getfield("外資買張")-getfield("外資賣張");
+if value1<>0 and value5>0 then value6=value5/value1 else value6=0;
+if value1<>0 and value5<0 then value7=value5/value1 else value7=0;
+
+// 自本比
+value8=getfield("自營商買張")-getfield("自營商賣張");
+if value1<>0 and value8>0 then value9=value8/value1 else value9=0;
+if value1<>0 and value8<0 then value10=value8/value1 else value10=0;
+
+// 投本比
+value11=getfield("投信買張")-getfield("投信賣張");
+if value1<>0 and value11>0 then value12=value11/value1 else value12=0;
+if value1<>0 and value11<0 then value13=value11/value1 else value13=0;
+
+// 借券
+{value14=getfield("借券張數")-getfield("還券張數");
+value15=
+if value1<>0 and value14>0 then value15=value14/value1 else value15=0;
+if value1<>0 and value14<0 then value16=value14/value1 else value15=0;}
+
+// 借券
+value42=getfield("借券餘額張數");
+value14=getfield("借券張數")-getfield("還券張數");
+if value42<>0 then begin
+	if value14>0 then begin
+		value15=value14/value1;
+	end else if value14<0 then begin
+		value16=value14/value1;
+	end;
+end;
+
+
+// 融券
+value17=getField("融券賣出張數")-GetField("融券買進張數");
+if value1<>0 and value17>0 then value18=value17/value1 else value18=0;
+if value1<>0 and value17<0 then value19=value17/value1 else value19=0;
+
+point=0;
+point2=0;
+
+// 融
+if value3>=50 and value2>0 then begin
+	point+=1;
+end else if value4<=-50 and value2<0 then begin
+	point2+=1;
+end;
+
+// 外
+if value6>=50 and value5>0 then begin
+	point+=1;
+end else if value7<=-50 and value5<0 then begin
+	point2+=1;
+end;
+
+// 自
+if value9>=15 and value8>0 then begin
+	point+=1;
+end else if value10<=-15 and value8<0 then begin
+	point2+=1;
+end;
+
+// 投
+if value12>=15 and value11>0 then begin
+	point+=1;
+end else if value13<=-15 and value11<0 then begin
+	point2+=1;
+end;
+
+// 借
+if value15>=10 and value14>0 then begin
+	point2+=1;
+end else if value16<=-10 and value14<0 then begin
+	point+=1;
+end;
+
+// 券
+if value18>=3 and value17>0 then begin
+	point2+=1;
+end else if value19<=-3 and value17<0 then begin
+	point+=1;
+end;
+
+// 融
+value30=truecount(value2>0,30);
+value31=truecount(value2<0,30);
+
+// 外
+value32=truecount(value5>0,30);
+value33=truecount(value5<0,30);
+
+// 自
+value34=truecount(value8>0,30);
+value35=truecount(value8<0,30);
+
+// 投
+value36=truecount(value11>0,30);
+value37=truecount(value11<0,30);
+
+// 借
+value38=truecount(value14>0,30);
+value39=truecount(value14<0,30);
+
+// 融券
+value40=truecount(value17>0,30);
+value41=truecount(value17<0,30);
+
+// 融連買賣----------------------------
+if value2>0 then begin
+	if value30=5 then begin
+		point+=1;
+	end else if value30=6 then begin
+		point+=2;
+	end else if value30=7 then begin
+		point+=3;
+	end else if value30=8 then begin
+		point+=4;
+	end else if value30=9 then begin
+		point+=5;
+	end else if value30=10 then begin
+		point+=6;
+	end else if value30=11 then begin
+		point+=7;
+	end else if value30=12 then begin
+		point+=8;
+	end else if value30=13 then begin
+		point+=9;
+	end else if value30=14 then begin
+		point+=10;
+	end else if value30=15 then begin
+		point+=11;
+	end else if value30=16 then begin
+		point+=12;
+	end else if value30=17 then begin
+		point+=13;
+	end else if value30=18 then begin
+		point+=14;
+	end else if value30=19 then begin
+		point+=15;
+	end else if value30=20 then begin
+		point+=16;
+	end else if value30=21 then begin
+		point+=17;
+	end else if value30=22 then begin
+		point+=18;
+	end else if value30=23 then begin
+		point+=19;
+	end else if value30=24 then begin
+		point+=20;
+	end else if value30=25 then begin
+		point+=21;
+	end else if value30=26 then begin
+		point+=22;
+	end else if value30=27 then begin
+		point+=23;
+	end else if value30=28 then begin
+		point+=24;
+	end else if value30=29 then begin
+		point+=25;
+	end else if value30=30 then begin
+		point+=26;
+	end;
+end;
+
+if value2<0 then begin
+	if value31=5 then begin
+		point2+=1;
+	end else if value31=6 then begin
+		point2+=2;
+	end else if value31=7 then begin
+		point2+=3;
+	end else if value31=8 then begin
+		point2+=4;
+	end else if value31=9 then begin
+		point2+=5;
+	end else if value31=10 then begin
+		point2+=6;
+	end else if value31=11 then begin
+		point2+=7;
+	end else if value31=12 then begin
+		point2+=8;
+	end else if value31=13 then begin
+		point2+=9;
+	end else if value31=14 then begin
+		point2+=10;
+	end else if value31=15 then begin
+		point2+=11;
+	end else if value31=16 then begin
+		point2+=12;
+	end else if value31=17 then begin
+		point2+=13;
+	end else if value31=18 then begin
+		point2+=14;
+	end else if value31=19 then begin
+		point2+=15;
+	end else if value31=20 then begin
+		point2+=16;
+	end else if value31=21 then begin
+		point2+=17;
+	end else if value31=22 then begin
+		point2+=18;
+	end else if value31=23 then begin
+		point2+=19;
+	end else if value31=24 then begin
+		point2+=20;
+	end else if value31=25 then begin
+		point2+=21;
+	end else if value31=26 then begin
+		point2+=22;
+	end else if value31=27 then begin
+		point2+=23;
+	end else if value31=28 then begin
+		point2+=24;
+	end else if value31=29 then begin
+		point2+=25;
+	end else if value31=30 then begin
+		point2+=26;
+	end;
+end;
+
+// 外連買賣----------------------------
+if value5>0 then begin
+	if value32=5 then begin
+		point+=1;
+	end else if value32=6 then begin
+		point+=2;
+	end else if value32=7 then begin
+		point+=3;
+	end else if value32=8 then begin
+		point+=4;
+	end else if value32=9 then begin
+		point+=5;
+	end else if value32=10 then begin
+		point+=6;
+	end else if value32=11 then begin
+		point+=7;
+	end else if value32=12 then begin
+		point+=8;
+	end else if value32=13 then begin
+		point+=9;
+	end else if value32=14 then begin
+		point+=10;
+	end else if value32=15 then begin
+		point+=11;
+	end else if value32=16 then begin
+		point+=12;
+	end else if value32=17 then begin
+		point+=13;
+	end else if value32=18 then begin
+		point+=14;
+	end else if value32=19 then begin
+		point+=15;
+	end else if value32=20 then begin
+		point+=16;
+	end else if value32=21 then begin
+		point+=17;
+	end else if value32=22 then begin
+		point+=18;
+	end else if value32=23 then begin
+		point+=19;
+	end else if value32=24 then begin
+		point+=20;
+	end else if value32=25 then begin
+		point+=21;
+	end else if value32=26 then begin
+		point+=22;
+	end else if value32=27 then begin
+		point+=23;
+	end else if value32=28 then begin
+		point+=24;
+	end else if value32=29 then begin
+		point+=25;
+	end else if value32=30 then begin
+		point+=26;
+	end;
+end;
+
+if value5<0 then begin
+	if value33=5 then begin
+		point2+=1;
+	end else if value33=6 then begin
+		point2+=2;
+	end else if value33=7 then begin
+		point2+=3;
+	end else if value33=8 then begin
+		point2+=4;
+	end else if value33=9 then begin
+		point2+=5;
+	end else if value33=10 then begin
+		point2+=6;
+	end else if value33=11 then begin
+		point2+=7;
+	end else if value33=12 then begin
+		point2+=8;
+	end else if value33=13 then begin
+		point2+=9;
+	end else if value33=14 then begin
+		point2+=10;
+	end else if value33=15 then begin
+		point2+=11;
+	end else if value33=16 then begin
+		point2+=12;
+	end else if value33=17 then begin
+		point2+=13;
+	end else if value33=18 then begin
+		point2+=14;
+	end else if value33=19 then begin
+		point2+=15;
+	end else if value33=20 then begin
+		point2+=16;
+	end else if value33=21 then begin
+		point2+=17;
+	end else if value33=22 then begin
+		point2+=18;
+	end else if value33=23 then begin
+		point2+=19;
+	end else if value33=24 then begin
+		point2+=20;
+	end else if value33=25 then begin
+		point2+=21;
+	end else if value33=26 then begin
+		point2+=22;
+	end else if value33=27 then begin
+		point2+=23;
+	end else if value33=28 then begin
+		point2+=24;
+	end else if value33=29 then begin
+		point2+=25;
+	end else if value33=30 then begin
+		point2+=26;
+	end;
+end;
+
+// 自連買賣----------------------------
+if value8>0 then begin
+	if value34=5 then begin
+		point+=1;
+	end else if value34=6 then begin
+		point+=2;
+	end else if value34=7 then begin
+		point+=3;
+	end else if value34=8 then begin
+		point+=4;
+	end else if value34=9 then begin
+		point+=5;
+	end else if value34=10 then begin
+		point+=6;
+	end else if value34=11 then begin
+		point+=7;
+	end else if value34=12 then begin
+		point+=8;
+	end else if value34=13 then begin
+		point+=9;
+	end else if value34=14 then begin
+		point+=10;
+	end else if value34=15 then begin
+		point+=11;
+	end else if value34=16 then begin
+		point+=12;
+	end else if value34=17 then begin
+		point+=13;
+	end else if value34=18 then begin
+		point+=14;
+	end else if value34=19 then begin
+		point+=15;
+	end else if value34=20 then begin
+		point+=16;
+	end else if value34=21 then begin
+		point+=17;
+	end else if value34=22 then begin
+		point+=18;
+	end else if value34=23 then begin
+		point+=19;
+	end else if value34=24 then begin
+		point+=20;
+	end else if value34=25 then begin
+		point+=21;
+	end else if value34=26 then begin
+		point+=22;
+	end else if value34=27 then begin
+		point+=23;
+	end else if value34=28 then begin
+		point+=24;
+	end else if value34=29 then begin
+		point+=25;
+	end else if value34=30 then begin
+		point+=26;
+	end;
+end;
+
+if value8<0 then begin
+	if value35=5 then begin
+		point2+=1;
+	end else if value35=6 then begin
+		point2+=2;
+	end else if value35=7 then begin
+		point2+=3;
+	end else if value35=8 then begin
+		point2+=4;
+	end else if value35=9 then begin
+		point2+=5;
+	end else if value35=10 then begin
+		point2+=6;
+	end else if value35=11 then begin
+		point2+=7;
+	end else if value35=12 then begin
+		point2+=8;
+	end else if value35=13 then begin
+		point2+=9;
+	end else if value35=14 then begin
+		point2+=10;
+	end else if value35=15 then begin
+		point2+=11;
+	end else if value35=16 then begin
+		point2+=12;
+	end else if value35=17 then begin
+		point2+=13;
+	end else if value35=18 then begin
+		point2+=14;
+	end else if value35=19 then begin
+		point2+=15;
+	end else if value35=20 then begin
+		point2+=16;
+	end else if value35=21 then begin
+		point2+=17;
+	end else if value35=22 then begin
+		point2+=18;
+	end else if value35=23 then begin
+		point2+=19;
+	end else if value35=24 then begin
+		point2+=20;
+	end else if value35=25 then begin
+		point2+=21;
+	end else if value35=26 then begin
+		point2+=22;
+	end else if value35=27 then begin
+		point2+=23;
+	end else if value35=28 then begin
+		point2+=24;
+	end else if value35=29 then begin
+		point2+=25;
+	end else if value35=30 then begin
+		point2+=26;
+	end;
+end;
+
+// 投連買賣----------------------------
+if value11>0 then begin
+	if value36=5 then begin
+		point+=1;
+	end else if value36=6 then begin
+		point+=2;
+	end else if value36=7 then begin
+		point+=3;
+	end else if value36=8 then begin
+		point+=4;
+	end else if value36=9 then begin
+		point+=5;
+	end else if value36=10 then begin
+		point+=6;
+	end else if value36=11 then begin
+		point+=7;
+	end else if value36=12 then begin
+		point+=8;
+	end else if value36=13 then begin
+		point+=9;
+	end else if value36=14 then begin
+		point+=10;
+	end else if value36=15 then begin
+		point+=11;
+	end else if value36=16 then begin
+		point+=12;
+	end else if value36=17 then begin
+		point+=13;
+	end else if value36=18 then begin
+		point+=14;
+	end else if value36=19 then begin
+		point+=15;
+	end else if value36=20 then begin
+		point+=16;
+	end else if value36=21 then begin
+		point+=17;
+	end else if value36=22 then begin
+		point+=18;
+	end else if value36=23 then begin
+		point+=19;
+	end else if value36=24 then begin
+		point+=20;
+	end else if value36=25 then begin
+		point+=21;
+	end else if value36=26 then begin
+		point+=22;
+	end else if value36=27 then begin
+		point+=23;
+	end else if value36=28 then begin
+		point+=24;
+	end else if value36=29 then begin
+		point+=25;
+	end else if value36=30 then begin
+		point+=26;
+	end;
+end;
+
+if value11<0 then begin
+	if value37=5 then begin
+		point2+=1;
+	end else if value37=6 then begin
+		point2+=2;
+	end else if value37=7 then begin
+		point2+=3;
+	end else if value37=8 then begin
+		point2+=4;
+	end else if value37=9 then begin
+		point2+=5;
+	end else if value37=10 then begin
+		point2+=6;
+	end else if value37=11 then begin
+		point2+=7;
+	end else if value37=12 then begin
+		point2+=8;
+	end else if value37=13 then begin
+		point2+=9;
+	end else if value37=14 then begin
+		point2+=10;
+	end else if value37=15 then begin
+		point2+=11;
+	end else if value37=16 then begin
+		point2+=12;
+	end else if value37=17 then begin
+		point2+=13;
+	end else if value37=18 then begin
+		point2+=14;
+	end else if value37=19 then begin
+		point2+=15;
+	end else if value37=20 then begin
+		point2+=16;
+	end else if value37=21 then begin
+		point2+=17;
+	end else if value37=22 then begin
+		point2+=18;
+	end else if value37=23 then begin
+		point2+=19;
+	end else if value37=24 then begin
+		point2+=20;
+	end else if value37=25 then begin
+		point2+=21;
+	end else if value37=26 then begin
+		point2+=22;
+	end else if value37=27 then begin
+		point2+=23;
+	end else if value37=28 then begin
+		point2+=24;
+	end else if value37=29 then begin
+		point2+=25;
+	end else if value37=30 then begin
+		point2+=26;
+	end;
+end;
+
+// 借連買賣----------------------------
+if value14>0 then begin
+	if value38=5 then begin
+		point2+=1;
+	end else if value38=6 then begin
+		point2+=2;
+	end else if value38=7 then begin
+		point2+=3;
+	end else if value38=8 then begin
+		point2+=4;
+	end else if value38=9 then begin
+		point2+=5;
+	end else if value38=10 then begin
+		point2+=6;
+	end else if value38=11 then begin
+		point2+=7;
+	end else if value38=12 then begin
+		point2+=8;
+	end else if value38=13 then begin
+		point2+=9;
+	end else if value38=14 then begin
+		point2+=10;
+	end else if value38=15 then begin
+		point2+=11;
+	end else if value38=16 then begin
+		point2+=12;
+	end else if value38=17 then begin
+		point2+=13;
+	end else if value38=18 then begin
+		point2+=14;
+	end else if value38=19 then begin
+		point2+=15;
+	end else if value38=20 then begin
+		point2+=16;
+	end else if value38=21 then begin
+		point2+=17;
+	end else if value38=22 then begin
+		point2+=18;
+	end else if value38=23 then begin
+		point2+=19;
+	end else if value38=24 then begin
+		point2+=20;
+	end else if value38=25 then begin
+		point2+=21;
+	end else if value38=26 then begin
+		point2+=22;
+	end else if value38=27 then begin
+		point2+=23;
+	end else if value38=28 then begin
+		point2+=24;
+	end else if value38=29 then begin
+		point2+=25;
+	end else if value38=30 then begin
+		point2+=26;
+	end;
+end;
+
+if value14<0 then begin
+	if value39=5 then begin
+		point+=1;
+	end else if value39=6 then begin
+		point+=2;
+	end else if value39=7 then begin
+		point+=3;
+	end else if value39=8 then begin
+		point+=4;
+	end else if value39=9 then begin
+		point+=5;
+	end else if value39=10 then begin
+		point+=6;
+	end else if value39=11 then begin
+		point+=7;
+	end else if value39=12 then begin
+		point+=8;
+	end else if value39=13 then begin
+		point+=9;
+	end else if value39=14 then begin
+		point+=10;
+	end else if value39=15 then begin
+		point+=11;
+	end else if value39=16 then begin
+		point+=12;
+	end else if value39=17 then begin
+		point+=13;
+	end else if value39=18 then begin
+		point+=14;
+	end else if value39=19 then begin
+		point+=15;
+	end else if value39=20 then begin
+		point+=16;
+	end else if value39=21 then begin
+		point+=17;
+	end else if value39=22 then begin
+		point+=18;
+	end else if value39=23 then begin
+		point+=19;
+	end else if value39=24 then begin
+		point+=20;
+	end else if value39=25 then begin
+		point+=21;
+	end else if value39=26 then begin
+		point+=22;
+	end else if value39=27 then begin
+		point+=23;
+	end else if value39=28 then begin
+		point+=24;
+	end else if value39=29 then begin
+		point+=25;
+	end else if value39=30 then begin
+		point+=26;
+	end;
+end;
+
+// 券連買賣----------------------------
+if value17>0 then begin
+	if value40=5 then begin
+		point2+=1;
+	end else if value40=6 then begin
+		point2+=2;
+	end else if value40=7 then begin
+		point2+=3;
+	end else if value40=8 then begin
+		point2+=4;
+	end else if value40=9 then begin
+		point2+=5;
+	end else if value40=10 then begin
+		point2+=6;
+	end else if value40=11 then begin
+		point2+=7;
+	end else if value40=12 then begin
+		point2+=8;
+	end else if value40=13 then begin
+		point2+=9;
+	end else if value40=14 then begin
+		point2+=10;
+	end else if value40=15 then begin
+		point2+=11;
+	end else if value40=16 then begin
+		point2+=12;
+	end else if value40=17 then begin
+		point2+=13;
+	end else if value40=18 then begin
+		point2+=14;
+	end else if value40=19 then begin
+		point2+=15;
+	end else if value40=20 then begin
+		point2+=16;
+	end else if value40=21 then begin
+		point2+=17;
+	end else if value40=22 then begin
+		point2+=18;
+	end else if value40=23 then begin
+		point2+=19;
+	end else if value40=24 then begin
+		point2+=20;
+	end else if value40=25 then begin
+		point2+=21;
+	end else if value40=26 then begin
+		point2+=22;
+	end else if value40=27 then begin
+		point2+=23;
+	end else if value40=28 then begin
+		point2+=24;
+	end else if value40=29 then begin
+		point2+=25;
+	end else if value40=30 then begin
+		point2+=26;
+	end;
+end;
+
+if value17<0 then begin
+	if value41=5 then begin
+		point+=1;
+	end else if value41=6 then begin
+		point+=2;
+	end else if value41=7 then begin
+		point+=3;
+	end else if value41=8 then begin
+		point+=4;
+	end else if value41=9 then begin
+		point+=5;
+	end else if value41=10 then begin
+		point+=6;
+	end else if value41=11 then begin
+		point+=7;
+	end else if value41=12 then begin
+		point+=8;
+	end else if value41=13 then begin
+		point+=9;
+	end else if value41=14 then begin
+		point+=10;
+	end else if value41=15 then begin
+		point+=11;
+	end else if value41=16 then begin
+		point+=12;
+	end else if value41=17 then begin
+		point+=13;
+	end else if value41=18 then begin
+		point+=14;
+	end else if value41=19 then begin
+		point+=15;
+	end else if value41=20 then begin
+		point+=16;
+	end else if value41=21 then begin
+		point+=17;
+	end else if value41=22 then begin
+		point+=18;
+	end else if value41=23 then begin
+		point+=19;
+	end else if value41=24 then begin
+		point+=20;
+	end else if value41=25 then begin
+		point+=21;
+	end else if value41=26 then begin
+		point+=22;
+	end else if value41=27 then begin
+		point+=23;
+	end else if value41=28 then begin
+		point+=24;
+	end else if value41=29 then begin
+		point+=25;
+	end else if value41=30 then begin
+		point+=26;
+	end;
+end;
+
+// 同買同賣
+if value2>0 and value5>0 and value8>0 and value11>0 then point+=1;
+if value2<0 and value5<0 and value8<0 and value11<0 then point2+=1;
+
+// 主力本比
+value68=getField("主力買張")-getfield("主力賣張");
+if value1<>0 and value68>0 then value69=value68/value1 else value69=0;
+if value1<>0 and value68<0 then value70=value68/value1 else value70=0;
+
+if value69>=50 and value68>0 then begin
+	point+=1;
+end else if value70<=-50 and value68<0 then begin
+	point2+=1;
+end;
+
+value71=truecount(value68>0,10);
+value72=truecount(value68<0,10);
+
+
+plot1(point,"買");
+plot2(point2,"賣");
