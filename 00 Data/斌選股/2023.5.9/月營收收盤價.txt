@@ -1,0 +1,72 @@
+variable:i(0);
+value1 = getfield("月營收", "M");
+value2 = average(value1,3);
+
+plot1(value2,"月營收");
+
+value3 = AbsValue(value1[1]-value1);
+value4 = AbsValue(value1[2]-value1);
+value5 = AbsValue(value1[3]-value1);
+value6 = AbsValue(value1[4]-value1);
+value7 = AbsValue(value1[5]-value1);
+value8 = AbsValue(value1[6]-value1);
+value9 = AbsValue(value1[7]-value1);
+value10 = AbsValue(value1[8]-value1);
+value11 = AbsValue(value1[9]-value1);
+value12 = AbsValue(value1[10]-value1);
+value13 = AbsValue(value1[11]-value1);
+value14 = AbsValue(value1[12]-value1);
+value15 = AbsValue(value1[13]-value1);
+value16 = AbsValue(value1[14]-value1);
+value17 = AbsValue(value1[15]-value1);
+value18 = AbsValue(value1[16]-value1);
+value19 = AbsValue(value1[17]-value1);
+value20 = AbsValue(value1[18]-value1);
+value21 = AbsValue(value1[19]-value1);
+
+value22 = minlist(value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21);
+
+
+
+value30 = AbsValue(value2[1]-value2);
+value31 = AbsValue(value2[2]-value2);
+value32 = AbsValue(value2[3]-value2);
+value33 = AbsValue(value2[4]-value2);
+value34 = AbsValue(value2[5]-value2);
+value35 = AbsValue(value2[6]-value2);
+value36 = AbsValue(value2[7]-value2);
+value37 = AbsValue(value2[8]-value2);
+value38 = AbsValue(value2[9]-value2);
+value39 = AbsValue(value2[10]-value2);
+value40 = AbsValue(value2[11]-value2);
+value41 = AbsValue(value2[12]-value2);
+value42 = AbsValue(value2[13]-value2);
+value43 = AbsValue(value2[14]-value2);
+value44 = AbsValue(value2[15]-value2);
+value45 = AbsValue(value2[16]-value2);
+value46 = AbsValue(value2[17]-value2);
+value47 = AbsValue(value2[18]-value2);
+value48 = AbsValue(value2[19]-value2);
+
+value49 = minlist(value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46,value47,value48);
+
+// 3月營收相近收盤價
+
+// 月營收相近收盤價
+for i = 1 to 19 begin
+	value23 = AbsValue(value1[i]-value1);
+	value50 = AbsValue(value2[1]-value2);
+	
+	if value22 = value23 then begin
+		value24 = close[i];
+		plot2(close[i],"月");
+	end;
+	
+	if value49 = value50 then begin
+		value25 = close[i];
+		plot3(close[i],"均");
+	end;
+	
+	value26 = (value24+value25)/2;
+	plot4(value26,"雙");
+end;
