@@ -1,0 +1,73 @@
+value1 = getfield("月營收", "M");
+
+// [月營收] =====================================================
+Array: arr[60](0); // 宣告arrA是一個有60個元素的陣列，初始值都是0
+Array: arr2[60](0);
+Array: arr3[60](0);
+Array: arr_year[12](0);
+var: i(0);
+
+// 當月 ======================================
+for i = 0 to 60 begin
+	value2 = getfield("月營收", "M")[i];
+	arr[i]=value2;
+end;
+
+// 當月連漲
+value11 = value1-value1[1];
+value3 = CountIfARow(value11>0,10);
+
+// 當月排名
+Array_Sort(arr, 0, 60, False);
+for i = 0 to 60 begin
+	if arr[i] = value1 then value4 = i + 1;
+end;
+// ===========================================
+
+
+// 上月 ======================================
+for i = 1 to 61 begin
+	value5 = getfield("月營收", "M")[i];
+	arr2[i-1] = value5;
+end;
+Array_Sort(arr2, 0, 60, False);
+
+for i = 0 to 60 begin
+	if arr2[i] = getfield("月營收", "M")[1] then value6 = i + 1;
+end;
+
+
+// 前3月 =====================================
+for i = 2 to 62 begin
+	value7 = getfield("月營收", "M")[i];
+	arr3[i-2] = value7;
+end;
+Array_Sort(arr3, 0, 60, False);
+
+for i = 0 to 60 begin
+	if arr3[i] = getfield("月營收", "M")[2] then value8 = i + 1;
+end;
+
+
+// 年名 =====================================
+for i = 0 to 12 begin
+	value9 = getfield("月營收", "M")[i];
+	arr_year[i]=value9;
+end;
+Array_Sort(arr_year, 0, 12, False);
+
+for i = 0 to 12 begin
+	if arr_year[i] = value1 then value10 = i + 1;
+end;
+
+
+ret=1;
+
+outputField1(value4, "上月",order:=-1);
+outputField2(value6, "前2月");
+outputField3(value8, "前3月");
+outputField4(value1, "上月營收");
+outputField5(getfield("月營收", "M")[1], "前2月營收");
+outputField6(getfield("月營收", "M")[2], "前3月營收");
+outputField7(value3, "連漲");
+outputField8(value10, "年名");
